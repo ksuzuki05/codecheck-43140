@@ -11,3 +11,6 @@ __pycache__/
 
 #ignore 3rd party library files 
 Gemfile.lock
+
+# temporal
+my_memo.md
