@@ -15,4 +15,13 @@ public interface RecipesRepository {
      */
     Map<Integer, Recipe> getAllRecipes();
     
+    /**
+     * ID をキーとして、レシピテーブルからレシピを取得します。
+     * 
+     * <p>レシピテーブルに対応するレコードが存在しない場合、null を返却します。
+     * 
+     * @return ID で指定されたレシピ
+     */
+    Recipe getRecipeById(int id);
+    
 }
