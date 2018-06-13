@@ -78,5 +78,14 @@ public class RecipesRepositoryTest {
         assertEquals(expected1, recipes.get(1));
         assertEquals(expected2, recipes.get(2));
     }
+    
+    @Test
+    public void test_レシピが登録されておらず全レシピ一覧取得で空のマップが取得できる() {
+        dbSetUp(Operations.sequenceOf(RESET_TABLE));
+        
+        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        
+        assertEquals(0, recipes.size());
+    }
 
 }
