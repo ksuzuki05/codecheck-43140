@@ -87,5 +87,16 @@ public class RecipesRepositoryTest {
         
         assertEquals(0, recipes.size());
     }
+    
+    @Test
+    public void test_idで指定したレシピを取得できる() {
+        dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
+        
+        Recipe expected = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
+        
+        Recipe actual = recipesRepository.getRecipeById(2);
+        
+        assertEquals(expected, actual);
+    }
 
 }
