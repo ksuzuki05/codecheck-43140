@@ -99,4 +99,13 @@ public class RecipesRepositoryTest {
         assertEquals(expected, actual);
     }
 
+    
+    @Test
+    public void test_idで指定したレシピが存在せずnullが返却される() {
+        dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
+        
+        Recipe actual = recipesRepository.getRecipeById(3);
+        
+        assertNull(actual);
+    }
 }
