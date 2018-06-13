@@ -110,14 +110,14 @@ public class RecipesRepositoryTest {
     }
     
     @Test
-    public void test_レシピを作成できる() {
+    public void test_レシピを登録できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
         Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        boolean result = recipesRepository.createRecipe(target);
+        boolean result = recipesRepository.entryRecipe(target);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
         
         assertTrue(result);

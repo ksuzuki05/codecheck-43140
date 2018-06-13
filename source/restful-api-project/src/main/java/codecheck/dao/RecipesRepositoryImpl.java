@@ -78,12 +78,28 @@ public class RecipesRepositoryImpl implements RecipesRepository {
         return mapRecipeEntityToRecipe(recipeEntity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean entryRecipe(Recipe recipe) {
+        int result = jdbcTemplate.update(
+                "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
+              + "VALUES (?, ?, ?, ?, ?)",
+                recipe.getTitle(),
+                recipe.getMakingTime(),
+                recipe.getServes(),
+                recipe.getIngredients(),
+                recipe.getCost());
+        
+        return result == 1;
+    }
+    
     private Recipe mapRecipeEntityToRecipe(RecipeEntity recipeEntity) {
         return new Recipe(recipeEntity.getTitle(),
-                          recipeEntity.getMakingTime(),
-                          recipeEntity.getServes(),
-                          recipeEntity.getIngredients(),
-                          recipeEntity.getCost());
+                recipeEntity.getMakingTime(),
+                recipeEntity.getServes(),
+                recipeEntity.getIngredients(),
+                recipeEntity.getCost());
     }
-
 }
