@@ -2,14 +2,15 @@ package codecheck.dao;
 
 import static codecheck.common.Utils.parseDate;
 import static org.junit.Assert.*;
-import java.util.Map;
-import javax.sql.DataSource;
+
+import codecheck.domain.dto.Recipe;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.Operations;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.destination.Destination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import codecheck.domain.dto.Recipe;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +75,8 @@ public class RecipesRepositoryTest {
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
         
         assertEquals(2, recipes.size());
-        assertEquals(expected1, recipes.get(0));
-        assertEquals(expected2, recipes.get(1));
+        assertEquals(expected1, recipes.get(1));
+        assertEquals(expected2, recipes.get(2));
     }
 
 }
