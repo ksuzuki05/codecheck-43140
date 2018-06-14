@@ -147,4 +147,21 @@ public class RecipesServiceTest {
         recipesService.updateRecipe(2, recipe);
     }
     
+    @Test
+    public void test_idで指定したレシピを削除できる() {
+        doReturn(true).when(recipesRepository).deleteRecipeById(2);
+        
+        boolean result = recipesService.deleteRecipeById(2);
+        
+        assertTrue(result);
+    }
+    
+    @Test
+    public void test_idで指定したレシピが存在せず削除時にRecipeNotFoundExceptionが発生する() {
+        expectedException.expect(RecipeNotFoundException.class);
+        
+        doReturn(false).when(recipesRepository).deleteRecipeById(2);
+
+        recipesService.deleteRecipeById(2);
+    }
 }

@@ -71,4 +71,18 @@ public class RecipesServiceImpl implements RecipesService {
         
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean deleteRecipeById(Integer id) {
+        boolean result = recipesRepository.deleteRecipeById(id);
+        
+        if (!result) {
+            throw new RecipeNotFoundException();
+        }
+        
+        return true;
+    }
 }

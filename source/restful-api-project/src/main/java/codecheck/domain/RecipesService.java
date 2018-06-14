@@ -36,8 +36,16 @@ public interface RecipesService {
      * 
      * @param id 更新するレシピの ID
      * @param recipe 更新後のレシピ
-     * @return
+     * @return 更新に成功した場合 true, 失敗した場合 false
      */
     public boolean updateRecipe(Integer id, Recipe recipe);
+
+    /**
+     * ID で指定したレシピを削除します。
+     * 
+     * @param id 削除するレシピの ID
+     * @return 削除に成功した場合 true, 失敗した場合 false
+     */
+    public boolean deleteRecipeById(Integer id);
 
 }
