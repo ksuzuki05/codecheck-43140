@@ -2,13 +2,12 @@ package codecheck.dao;
 
 import static codecheck.common.Utils.parseDate;
 import static org.junit.Assert.*;
-
-import codecheck.domain.dto.Recipe;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.Operations;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.destination.Destination;
 import com.ninja_squad.dbsetup.operation.Operation;
+import codecheck.domain.model.Recipe;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.junit.Test;

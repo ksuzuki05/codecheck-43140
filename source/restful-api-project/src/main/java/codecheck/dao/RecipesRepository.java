@@ -1,6 +1,6 @@
 package codecheck.dao;
 
-import codecheck.domain.dto.Recipe;
+import codecheck.domain.model.Recipe;
 import java.util.Map;
 
 /**

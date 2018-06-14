@@ -1,4 +1,4 @@
-package codecheck.domain.dto;
+package codecheck.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

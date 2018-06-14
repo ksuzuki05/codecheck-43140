@@ -1,7 +1,7 @@
 package codecheck.dao;
 
 import codecheck.dao.entity.RecipeEntity;
-import codecheck.domain.dto.Recipe;
+import codecheck.domain.model.Recipe;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * {@link RecipesRepository} の実装クラス。
  */
-@Component
+@Repository
 public class RecipesRepositoryImpl implements RecipesRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
