@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
 import exception.InvalidRecipeException;
+import exception.DatabaseProcessFailureException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -44,7 +45,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
         expectedException.expect(InvalidRecipeException.class);
 
-        boolean result = recipesService.createRecipe(recipe);
+        recipesService.createRecipe(recipe);
     }
     
     @Test
@@ -52,7 +53,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", null, "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
         expectedException.expect(InvalidRecipeException.class);
 
-        boolean result = recipesService.createRecipe(recipe);
+        recipesService.createRecipe(recipe);
     }
     
     @Test
@@ -60,7 +61,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", null, "玉ねぎ, トマト, スパイス, 水", new Integer(450));
         expectedException.expect(InvalidRecipeException.class);
 
-        boolean result = recipesService.createRecipe(recipe);
+        recipesService.createRecipe(recipe);
     }
     
     @Test
@@ -68,7 +69,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", null, new Integer(450));
         expectedException.expect(InvalidRecipeException.class);
 
-        boolean result = recipesService.createRecipe(recipe);
+        recipesService.createRecipe(recipe);
     }
     
     @Test
@@ -76,6 +77,16 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", null);
         expectedException.expect(InvalidRecipeException.class);
 
-        boolean result = recipesService.createRecipe(recipe);
+        recipesService.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_想定外の原因でDB登録に失敗した場合にDatabaseProcessFailureExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        expectedException.expect(DatabaseProcessFailureException.class);
+        
+        doReturn(false).when(recipesRepository).entryRecipe(recipe);
+        
+        recipesService.createRecipe(recipe);
     }
 }
