@@ -23,4 +23,12 @@ public interface RecipesService {
      */
     public Map<Integer, Recipe> getAllRecipes();
 
+    /**
+     * ID で指定したレシピを取得します。
+     * 
+     * @param id 取得するレシピの ID
+     * @return レシピ
+     */
+    public Recipe getRecipeById(Integer id);
+
 }

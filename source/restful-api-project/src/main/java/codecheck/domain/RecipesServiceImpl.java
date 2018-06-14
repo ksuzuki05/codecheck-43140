@@ -42,4 +42,12 @@ public class RecipesServiceImpl implements RecipesService {
     public Map<Integer, Recipe> getAllRecipes() {
         return recipesRepository.getAllRecipes();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Recipe getRecipeById(Integer id) {
+        return recipesRepository.getRecipeById(id);
+    }
 }
