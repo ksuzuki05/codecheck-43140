@@ -126,4 +126,20 @@ public class RecipesRepositoryTest {
         assertEquals(expected2, recipes.get(2));
         assertEquals(target, recipes.get(3));
     }
+    
+    @Test
+    public void test_idで指定したレシピを更新できる() {
+        dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
+        
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+
+        boolean result = recipesRepository.updateRecipe(2, target);
+        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        
+        assertTrue(result);
+        assertEquals(2, recipes.size());
+        assertEquals(expected1, recipes.get(1));
+        assertEquals(target, recipes.get(2));
+    }
 }
