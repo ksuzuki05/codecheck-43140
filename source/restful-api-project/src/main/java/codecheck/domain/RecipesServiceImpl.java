@@ -2,6 +2,7 @@ package codecheck.domain;
 
 import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
+import exception.DatabaseProcessFailureException;
 import exception.InvalidRecipeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,12 @@ public class RecipesServiceImpl implements RecipesService {
             throw new InvalidRecipeException();
         }
         
-        return recipesRepository.entryRecipe(recipe);
+        boolean result = recipesRepository.entryRecipe(recipe);
+        
+        if (!result) {
+            throw new DatabaseProcessFailureException();
+        }
+        
+        return true;
     }
-
 }
