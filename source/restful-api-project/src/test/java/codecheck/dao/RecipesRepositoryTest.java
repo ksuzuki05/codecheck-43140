@@ -22,20 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class RecipesRepositoryTest {
-    private static final Operation RESET_TABLE =
-            Operations.sequenceOf(
-                Operations.sql("DROP TABLE IF EXISTS recipes"),
-                Operations.sql("CREATE TABLE IF NOT EXISTS recipes ("
-                             + "id SERIAL PRIMARY KEY,"
-                             + "title varchar(100) NOT NULL,"
-                             + "making_time varchar(100) NOT NULL,"
-                             + "serves varchar(100) NOT NULL,"
-                             + "ingredients varchar(300) NOT NULL,"
-                             + "cost integer NOT NULL,"
-                             + "created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,"
-                             + "updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP"
-                             + ")"),
-                Operations.deleteAllFrom("recipes"));
+    private static final Operation RESET_TABLE = Operations.deleteAllFrom("recipes");
     
     private static final Operation INSERT =
             Operations.insertInto("recipes").columns("id",
