@@ -106,4 +106,14 @@ public class RecipesServiceTest {
         assertEquals(recipe1, actual.get(1));
         assertEquals(recipe2, actual.get(2));
     }
+    
+    @Test
+    public void test_idで指定したレシピを取得できる() {
+        Recipe recipe = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        
+        doReturn(recipe).when(recipesRepository).getRecipeById(2);
+        Recipe actual = recipesService.getRecipeById(2);
+        
+        assertEquals(recipe, actual);
+    }
 }
