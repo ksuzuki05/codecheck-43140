@@ -126,4 +126,14 @@ public class RecipesServiceTest {
 
         recipesService.getRecipeById(2);
     }
+    
+    @Test
+    public void test_idで指定したレシピを更新できる() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        
+        doReturn(true).when(recipesRepository).updateRecipe(2, recipe);
+        boolean result = recipesService.updateRecipe(2);
+        
+        assertTrue(result);
+    }
 }
