@@ -25,10 +25,19 @@ public interface RecipesRepository {
     Recipe getRecipeById(int id);
     
     /**
-     * レシピをレシピテーブルに登録します。
+     * 新しいレシピをレシピテーブルに登録します。
      * 
      * @param recipe 登録するレシピ
      * @return 登録が成功した場合 true, 失敗した場合 false
      */
     boolean entryRecipe(Recipe recipe);
+    
+    /**
+     * ID で指定したレシピを更新します。
+     * 
+     * @param id 更新対象のレシピ ID
+     * @param recipe 更新後のレシピ
+     * @return 更新が成功した場合 true, 失敗した場合 false
+     */
+    boolean updateRecipe(int id, Recipe recipe);
 }

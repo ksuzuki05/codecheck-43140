@@ -61,13 +61,34 @@ public class RecipesRepositoryImpl implements RecipesRepository {
     public boolean entryRecipe(Recipe recipe) {
         int result = jdbcTemplate.update(
                 "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
-              + "VALUES (?, ?, ?, ?, ?)",
+                + "VALUES (?, ?, ?, ?, ?)",
                 recipe.getTitle(),
                 recipe.getMakingTime(),
                 recipe.getServes(),
                 recipe.getIngredients(),
                 recipe.getCost());
         
+        return result == 1;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean updateRecipe(int id, Recipe recipe) {
+        int result = jdbcTemplate.update(
+                "UPDATE recipes SET title = ?, "
+                + "making_time = ?, "
+                + "serves = ?, "
+                + "ingredients = ?, "
+                + "cost = ? "
+                + "WHERE id = ?",
+                recipe.getTitle(),
+                recipe.getMakingTime(),
+                recipe.getServes(),
+                recipe.getIngredients(),
+                recipe.getCost(),
+                id);
         return result == 1;
     }
     
