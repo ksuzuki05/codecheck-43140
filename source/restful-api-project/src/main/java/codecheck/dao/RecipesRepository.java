@@ -40,4 +40,12 @@ public interface RecipesRepository {
      * @return 更新が成功した場合 true, 失敗した場合 false
      */
     boolean updateRecipe(int id, Recipe recipe);
+    
+    /**
+     * ID で指定したレシピをレシピテーブルから削除します。
+     * 
+     * @param id 削除対象のレシピ ID
+     * @return 削除が成功した場合 true, 失敗した場合 false
+     */
+    boolean deleteRecipeById(int id);
 }

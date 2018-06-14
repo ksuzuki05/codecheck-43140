@@ -96,6 +96,15 @@ public class RecipesRepositoryImpl implements RecipesRepository {
         return result == 1;
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean deleteRecipeById(int id) {
+        int result = jdbcTemplate.update("DELETE FROM recipes WHERE id = ?", id);
+        return result == 1;
+    }
+    
     private Recipe mapRecipeEntityToRecipe(RecipeEntity recipeEntity) {
         return new Recipe(recipeEntity.getTitle(),
                           recipeEntity.getMakingTime(),
@@ -103,4 +112,5 @@ public class RecipesRepositoryImpl implements RecipesRepository {
                           recipeEntity.getIngredients(),
                           recipeEntity.getCost());
     }
+    
 }
