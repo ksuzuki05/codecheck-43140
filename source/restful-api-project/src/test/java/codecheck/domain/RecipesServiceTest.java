@@ -5,7 +5,10 @@ import static org.mockito.Mockito.*;
 
 import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
+import exception.InvalidRecipeException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +26,9 @@ public class RecipesServiceTest {
     @Autowired
     private RecipesService recipesService;
     
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    
     @Test
     public void test_レシピを作成できる() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
@@ -31,5 +37,13 @@ public class RecipesServiceTest {
         boolean result = recipesService.createRecipe(recipe);
         
         assertTrue(result);
+    }
+    
+    @Test
+    public void test_titleがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        expectedException.expect(InvalidRecipeException.class);
+
+        boolean result = recipesService.createRecipe(recipe);
     }
 }
