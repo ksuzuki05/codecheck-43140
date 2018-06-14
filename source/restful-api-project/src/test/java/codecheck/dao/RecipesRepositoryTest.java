@@ -159,4 +159,18 @@ public class RecipesRepositoryTest {
         assertEquals(expected1, recipes.get(1));
         assertEquals(expected2, recipes.get(2));
     }
+    
+    @Test
+    public void test_idで指定したレシピを削除できる() {
+        dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
+        
+        Recipe expected = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+
+        boolean result = recipesRepository.deleteRecipeById(2);
+        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        
+        assertTrue(result);
+        assertEquals(1, recipes.size());
+        assertEquals(expected, recipes.get(1));
+    }
 }

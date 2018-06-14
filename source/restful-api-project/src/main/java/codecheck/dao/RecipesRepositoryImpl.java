@@ -2,6 +2,7 @@ package codecheck.dao;
 
 import codecheck.dao.entity.RecipeEntity;
 import codecheck.domain.dto.Recipe;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,22 +82,25 @@ public class RecipesRepositoryImpl implements RecipesRepository {
                 + "making_time = ?, "
                 + "serves = ?, "
                 + "ingredients = ?, "
-                + "cost = ? "
+                + "cost = ?, "
+                + "updated_at = ? "
                 + "WHERE id = ?",
                 recipe.getTitle(),
                 recipe.getMakingTime(),
                 recipe.getServes(),
                 recipe.getIngredients(),
                 recipe.getCost(),
+                new Date(),
                 id);
+        
         return result == 1;
     }
     
     private Recipe mapRecipeEntityToRecipe(RecipeEntity recipeEntity) {
         return new Recipe(recipeEntity.getTitle(),
-                recipeEntity.getMakingTime(),
-                recipeEntity.getServes(),
-                recipeEntity.getIngredients(),
-                recipeEntity.getCost());
+                          recipeEntity.getMakingTime(),
+                          recipeEntity.getServes(),
+                          recipeEntity.getIngredients(),
+                          recipeEntity.getCost());
     }
 }
