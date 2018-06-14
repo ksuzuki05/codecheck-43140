@@ -68,8 +68,8 @@ public class RecipesRepositoryTest {
     public void test_全レシピ一覧を取得できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
-        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", new Integer(700));
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
         
@@ -91,7 +91,7 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピを取得できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", new Integer(700));
+        Recipe expected = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         
         Recipe actual = recipesRepository.getRecipeById(2);
         
@@ -112,9 +112,9 @@ public class RecipesRepositoryTest {
     public void test_レシピを登録できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
-        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", new Integer(700));
-        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
+        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
         boolean result = recipesRepository.entryRecipe(target);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
@@ -130,8 +130,8 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピを更新できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
-        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
         boolean result = recipesRepository.updateRecipe(2, target);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
@@ -146,9 +146,9 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピが存在せず更新に失敗する() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
-        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", new Integer(700));
-        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
+        Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
         boolean result = recipesRepository.updateRecipe(3, target);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
@@ -163,7 +163,7 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピを削除できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
+        Recipe expected = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
 
         boolean result = recipesRepository.deleteRecipeById(2);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
@@ -177,8 +177,8 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピが存在せず削除に失敗する() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", new Integer(1000));
-        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", new Integer(700));
+        Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
+        Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
 
         boolean result = recipesRepository.deleteRecipeById(3);
         Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
