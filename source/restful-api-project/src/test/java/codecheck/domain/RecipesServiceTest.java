@@ -136,4 +136,15 @@ public class RecipesServiceTest {
         
         assertTrue(result);
     }
+
+    @Test
+    public void test_idで指定したレシピが存在せず更新時にRecipeNotFoundExceptionが発生する() {
+        expectedException.expect(RecipeNotFoundException.class);
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        
+        doReturn(false).when(recipesRepository).updateRecipe(2, recipe);
+
+        recipesService.updateRecipe(2, recipe);
+    }
+    
 }
