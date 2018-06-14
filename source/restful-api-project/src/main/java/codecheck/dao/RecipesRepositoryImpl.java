@@ -40,7 +40,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      * {@inheritDoc}
      */
     @Override
-    public Recipe getRecipeById(int id) {
+    public Recipe getRecipeById(Integer id) {
         RecipeEntity recipeEntity;
         
         try {
@@ -76,7 +76,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateRecipe(int id, Recipe recipe) {
+    public boolean updateRecipe(Integer id, Recipe recipe) {
         int result = jdbcTemplate.update(
                 "UPDATE recipes SET title = ?, "
                 + "making_time = ?, "
@@ -100,7 +100,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      * {@inheritDoc}
      */
     @Override
-    public boolean deleteRecipeById(int id) {
+    public boolean deleteRecipeById(Integer id) {
         int result = jdbcTemplate.update("DELETE FROM recipes WHERE id = ?", id);
         return result == 1;
     }

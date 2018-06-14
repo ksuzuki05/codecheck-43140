@@ -31,7 +31,7 @@ public class RecipesServiceTest {
     
     @Test
     public void test_レシピを作成できる() {
-        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
         doReturn(true).when(recipesRepository).entryRecipe(recipe);
         
         boolean result = recipesService.createRecipe(recipe);
@@ -41,7 +41,39 @@ public class RecipesServiceTest {
     
     @Test
     public void test_titleがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
-        Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        expectedException.expect(InvalidRecipeException.class);
+
+        boolean result = recipesService.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_makingTimeがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", null, "5人", "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        expectedException.expect(InvalidRecipeException.class);
+
+        boolean result = recipesService.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_servesがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", null, "玉ねぎ, トマト, スパイス, 水", new Integer(450));
+        expectedException.expect(InvalidRecipeException.class);
+
+        boolean result = recipesService.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_ingredientsがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", null, new Integer(450));
+        expectedException.expect(InvalidRecipeException.class);
+
+        boolean result = recipesService.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_costがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", null);
         expectedException.expect(InvalidRecipeException.class);
 
         boolean result = recipesService.createRecipe(recipe);

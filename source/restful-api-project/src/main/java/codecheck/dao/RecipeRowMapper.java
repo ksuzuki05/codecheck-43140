@@ -17,12 +17,12 @@ public class RecipeRowMapper implements RowMapper<RecipeEntity> {
      */
     @Override
     public RecipeEntity mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
-        return new RecipeEntity(resultSet.getInt("id"),
+        return new RecipeEntity(new Integer(resultSet.getInt("id")),
                                 resultSet.getString("title"),
                                 resultSet.getString("making_time"),
                                 resultSet.getString("serves"),
                                 resultSet.getString("ingredients"),
-                                resultSet.getInt("cost"),
+                                new Integer(resultSet.getInt("cost")),
                                 resultSet.getTimestamp("created_at"),
                                 resultSet.getTimestamp("updated_at"));
     }

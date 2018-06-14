@@ -22,7 +22,7 @@ public interface RecipesRepository {
      * 
      * @return ID で指定されたレシピ
      */
-    Recipe getRecipeById(int id);
+    Recipe getRecipeById(Integer id);
     
     /**
      * 新しいレシピをレシピテーブルに登録します。
@@ -39,7 +39,7 @@ public interface RecipesRepository {
      * @param recipe 更新後のレシピ
      * @return 更新が成功した場合 true, 失敗した場合 false
      */
-    boolean updateRecipe(int id, Recipe recipe);
+    boolean updateRecipe(Integer id, Recipe recipe);
     
     /**
      * ID で指定したレシピをレシピテーブルから削除します。
@@ -47,5 +47,5 @@ public interface RecipesRepository {
      * @param id 削除対象のレシピ ID
      * @return 削除が成功した場合 true, 失敗した場合 false
      */
-    boolean deleteRecipeById(int id);
+    boolean deleteRecipeById(Integer id);
 }
