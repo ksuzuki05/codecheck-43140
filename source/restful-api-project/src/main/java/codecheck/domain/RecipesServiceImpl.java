@@ -57,4 +57,12 @@ public class RecipesServiceImpl implements RecipesService {
         
         return recipe;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean updateRecipe(Integer id, Recipe recipe) {
+        return recipesRepository.updateRecipe(id, recipe);
+    }
 }

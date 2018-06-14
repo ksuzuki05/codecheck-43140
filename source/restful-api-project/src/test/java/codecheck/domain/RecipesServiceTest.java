@@ -132,7 +132,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
         doReturn(true).when(recipesRepository).updateRecipe(2, recipe);
-        boolean result = recipesService.updateRecipe(2);
+        boolean result = recipesService.updateRecipe(2, recipe);
         
         assertTrue(result);
     }

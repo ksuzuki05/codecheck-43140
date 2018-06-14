@@ -31,4 +31,13 @@ public interface RecipesService {
      */
     public Recipe getRecipeById(Integer id);
 
+    /**
+     * ID で指定したレシピを更新します。
+     * 
+     * @param id 更新するレシピの ID
+     * @param recipe 更新後のレシピ
+     * @return
+     */
+    public boolean updateRecipe(Integer id, Recipe recipe);
+
 }
