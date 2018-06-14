@@ -7,6 +7,7 @@ import java.util.Map;
 import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
 import exception.InvalidRecipeException;
+import exception.RecipeNotFoundException;
 import exception.DatabaseProcessFailureException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -115,5 +116,14 @@ public class RecipesServiceTest {
         Recipe actual = recipesService.getRecipeById(2);
         
         assertEquals(recipe, actual);
+    }
+    
+    @Test
+    public void test_idで指定したレシピが存在せず取得時にRecipeNotFoundExceptionが発生する() {
+        expectedException.expect(RecipeNotFoundException.class);
+        
+        doReturn(null).when(recipesRepository).getRecipeById(2);
+
+        recipesService.getRecipeById(2);
     }
 }
