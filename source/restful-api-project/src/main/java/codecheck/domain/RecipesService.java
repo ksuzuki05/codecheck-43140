@@ -1,7 +1,7 @@
 package codecheck.domain;
 
-import java.util.Map;
 import codecheck.domain.model.Recipe;
+import java.util.Map;
 
 /**
  * レシピの作成・取得・更新・削除機能を提供するサービスのインタフェース。

@@ -4,6 +4,7 @@ import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
 import exception.DatabaseProcessFailureException;
 import exception.InvalidRecipeException;
+import exception.RecipeNotFoundException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,12 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public Recipe getRecipeById(Integer id) {
-        return recipesRepository.getRecipeById(id);
+        Recipe recipe = recipesRepository.getRecipeById(id);
+        
+        if (recipe == null) {
+            throw new RecipeNotFoundException();
+        }
+        
+        return recipe;
     }
 }
