@@ -1,5 +1,6 @@
 package codecheck.domain;
 
+import java.util.Map;
 import codecheck.domain.model.Recipe;
 
 /**
@@ -14,5 +15,12 @@ public interface RecipesService {
      * @return 作成に成功した場合 true, 失敗した場合 false
      */
     public boolean createRecipe(Recipe recipe);
+
+    /**
+     * 全レシピを取得します。
+     * 
+     * @return レシピ ID をキー、レシピをバリューとするマップ
+     */
+    public Map<Integer, Recipe> getAllRecipes();
 
 }

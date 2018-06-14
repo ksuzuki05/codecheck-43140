@@ -4,6 +4,7 @@ import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
 import exception.DatabaseProcessFailureException;
 import exception.InvalidRecipeException;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,13 @@ public class RecipesServiceImpl implements RecipesService {
         }
         
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<Integer, Recipe> getAllRecipes() {
+        return recipesRepository.getAllRecipes();
     }
 }
