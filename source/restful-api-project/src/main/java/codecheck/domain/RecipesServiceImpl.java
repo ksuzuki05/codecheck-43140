@@ -63,6 +63,12 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public boolean updateRecipe(Integer id, Recipe recipe) {
-        return recipesRepository.updateRecipe(id, recipe);
+        boolean result = recipesRepository.updateRecipe(id, recipe);
+        
+        if (!result) {
+            throw new RecipeNotFoundException();
+        }
+        
+        return true;
     }
 }
