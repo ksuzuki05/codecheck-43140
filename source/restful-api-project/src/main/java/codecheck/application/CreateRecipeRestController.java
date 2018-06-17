@@ -43,7 +43,7 @@ public class CreateRecipeRestController {
     @RequestMapping(method = RequestMethod.POST, value = "recipes",
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public CreateRecipeResponse createRecipe(@RequestBody CreateRecipeRequest request) {
         if (request == null) {
             throw new InvalidPayloadException();

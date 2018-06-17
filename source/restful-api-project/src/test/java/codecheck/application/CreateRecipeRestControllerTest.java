@@ -42,7 +42,7 @@ public class CreateRecipeRestControllerTest {
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
                                             "createRecipe/request_success.json")))
-            .andExpect(status().isCreated())
+            .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(readMessageFromFile("createRecipe/response_success.json")));
     }
