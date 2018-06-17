@@ -1,0 +1,12 @@
+{
+    "message": "Recipe details by id",
+    "recipe": [
+        {
+            "title": "オムライス",
+            "making_time": "30分",
+            "serves": "2人",
+            "ingredients": "玉ねぎ,卵,スパイス,醤油",
+            "cost": "700"
+        }
+    ]
+}

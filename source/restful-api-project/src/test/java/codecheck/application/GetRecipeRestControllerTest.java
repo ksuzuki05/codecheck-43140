@@ -53,4 +53,15 @@ public class GetRecipeRestControllerTest {
            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
            .andExpect(content().json(readMessageFromFile("getRecipe/response_success_all-recipes.json")));
     }
+    
+    @Test
+    public void test_idで指定したレシピを取得できる() throws Exception {
+        Recipe recipe = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
+        
+        doReturn(recipe).when(service).getRecipeById(2);
+        
+        mvc.perform(get("/recipes/2"))
+           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+           .andExpect(content().json(readMessageFromFile("getRecipe/response_success_recipe-by-id.json")));
+    }
 }
