@@ -37,6 +37,7 @@ public class DeleteRecipeRestControllerTest {
         doReturn(true).when(service).deleteRecipeById(2);
         
         mvc.perform(delete("/recipes/2"))
+            .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(
                    readMessageFromFile("deleteRecipe/response_success.json")));
@@ -47,6 +48,7 @@ public class DeleteRecipeRestControllerTest {
         doThrow(new RecipeNotFoundException()).when(service).deleteRecipeById(2);
         
         mvc.perform(delete("/recipes/2"))
+            .andExpect(status().isNotFound())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(
                    readMessageFromFile("deleteRecipe/response_failure.json")));

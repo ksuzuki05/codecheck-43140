@@ -32,6 +32,7 @@ public class DeleteRecipeRestController {
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "recipes/{id}",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public DeleteRecipeResponse createRecipe(@PathVariable String id) {
         boolean result = recipesService.deleteRecipeById(Integer.parseInt(id));
         
@@ -48,8 +49,8 @@ public class DeleteRecipeRestController {
      * 
      * @return エラーレスポンス
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ RecipeNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public DeleteRecipeErrorResponse handleDeleteRecipeError() {
         String message = "No Recipe found";
