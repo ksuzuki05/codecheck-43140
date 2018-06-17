@@ -1,12 +1,13 @@
 ## Deploy information
 #### Language used
-- {node / python / ruby / Go / PHP / Java / etc.}
+- Java
 
 #### Hosting service
-- {AWS / DigitalOcean / Sakura / Heroku / etc.}
+- Heroku
 
 #### Brief explanation about how your code works
--
+- This project provides a REST API that can perform basic CRUD processing on the recipe table.
+- This REST API was created using postgreSQL and SpringBoot.
 
 #### Problem faced while solving the challenge
  -
