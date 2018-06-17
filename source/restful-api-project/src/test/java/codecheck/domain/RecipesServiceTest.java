@@ -56,8 +56,24 @@ public class RecipesServiceTest {
     }
     
     @Test
+    public void test_titleが空文字でレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        expectedException.expect(InvalidRecipeException.class);
+
+        service.createRecipe(recipe);
+    }
+    
+    @Test
     public void test_makingTimeがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
         Recipe recipe = new Recipe("トマトスープ", null, "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        expectedException.expect(InvalidRecipeException.class);
+
+        service.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_makingTimeが空文字でレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(InvalidRecipeException.class);
 
         service.createRecipe(recipe);
@@ -72,8 +88,24 @@ public class RecipesServiceTest {
     }
     
     @Test
+    public void test_servesが空文字でレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "", "玉ねぎ, トマト, スパイス, 水", 450);
+        expectedException.expect(InvalidRecipeException.class);
+
+        service.createRecipe(recipe);
+    }
+    
+    @Test
     public void test_ingredientsがnullでレシピ作成時にInvalidRecipeExceptionが発生する() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", null, 450);
+        expectedException.expect(InvalidRecipeException.class);
+
+        service.createRecipe(recipe);
+    }
+    
+    @Test
+    public void test_ingredientsが空文字でレシピ作成時にInvalidRecipeExceptionが発生する() {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "", 450);
         expectedException.expect(InvalidRecipeException.class);
 
         service.createRecipe(recipe);
