@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * レシピ削除 API エラーレスポンスペイロードを表現するクラス。
+ * レシピ取得 API エラーレスポンスペイロードを表現するクラス。
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteRecipeErrorResponse {
+public class GetRecipeErrorResponse {
 
     @JsonProperty("message")
     private String message;

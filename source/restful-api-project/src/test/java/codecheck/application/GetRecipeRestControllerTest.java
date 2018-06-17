@@ -1,16 +1,15 @@
 package codecheck.application;
 
 import static codecheck.common.TestUtils.readMessageFromFile;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
+import exception.RecipeNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -50,8 +49,10 @@ public class GetRecipeRestControllerTest {
         doReturn(map).when(service).getAllRecipes();
         
         mvc.perform(get("/recipes"))
-           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-           .andExpect(content().json(readMessageFromFile("getRecipe/response_success_all-recipes.json")));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(
+                   readMessageFromFile("getRecipe/response_success_all-recipes.json")));
     }
     
     @Test
@@ -61,7 +62,20 @@ public class GetRecipeRestControllerTest {
         doReturn(recipe).when(service).getRecipeById(2);
         
         mvc.perform(get("/recipes/2"))
-           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-           .andExpect(content().json(readMessageFromFile("getRecipe/response_success_recipe-by-id.json")));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(
+                    readMessageFromFile("getRecipe/response_success_recipe-by-id.json")));
+    }
+    
+    @Test
+    public void test_idで指定したレシピが存在せずレシピを取得に失敗してエラーメッセージが返却される() throws Exception {
+        doThrow(new RecipeNotFoundException()).when(service).getRecipeById(2);
+        
+        mvc.perform(get("/recipes/2"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(
+                    readMessageFromFile("getRecipe/response_failure_not-found.json")));
     }
 }

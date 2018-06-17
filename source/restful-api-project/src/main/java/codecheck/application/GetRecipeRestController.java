@@ -2,19 +2,25 @@ package codecheck.application;
 
 import codecheck.application.payload.GetAllRecipeResponse;
 import codecheck.application.payload.GetRecipeByIdResponse;
+import codecheck.application.payload.GetRecipeErrorResponse;
 import codecheck.application.payload.RecipePayload;
 import codecheck.application.payload.RecipeWithIdPayload;
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
+import exception.RecipeNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,6 +39,7 @@ public class GetRecipeRestController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "recipes",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public GetAllRecipeResponse getAllRecipe() {
         GetAllRecipeResponse response = new GetAllRecipeResponse();
         List<RecipeWithIdPayload> list = new ArrayList<>();
@@ -59,6 +66,7 @@ public class GetRecipeRestController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "recipes/{id}",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public GetRecipeByIdResponse getRecipeById(@PathVariable String id) {
         GetRecipeByIdResponse response = new GetRecipeByIdResponse();
 
@@ -71,6 +79,20 @@ public class GetRecipeRestController {
         response.setRecipe(list);
         
         return response;
+    }
+    
+    /**
+     * {@link RecipeNotFoundException} が発生した際に
+     * エラーメッセージを返却します。
+     * 
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler({ RecipeNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public GetRecipeErrorResponse handleDeleteRecipeError() {
+        String message = "No Recipe found";
+        return new GetRecipeErrorResponse(message);
     }
     
     private RecipePayload mapRecipeToRecipePayload(Recipe recipe) {

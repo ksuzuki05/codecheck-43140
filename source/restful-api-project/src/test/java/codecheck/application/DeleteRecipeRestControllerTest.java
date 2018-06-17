@@ -1,10 +1,8 @@
 package codecheck.application;
 
 import static codecheck.common.TestUtils.readMessageFromFile;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import codecheck.domain.RecipesService;
@@ -39,8 +37,9 @@ public class DeleteRecipeRestControllerTest {
         doReturn(true).when(service).deleteRecipeById(2);
         
         mvc.perform(delete("/recipes/2"))
-           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-           .andExpect(content().json(readMessageFromFile("deleteRecipe/response_success.json")));
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(
+                   readMessageFromFile("deleteRecipe/response_success.json")));
     }
     
     @Test
@@ -48,8 +47,8 @@ public class DeleteRecipeRestControllerTest {
         doThrow(new RecipeNotFoundException()).when(service).deleteRecipeById(2);
         
         mvc.perform(delete("/recipes/2"))
-           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-           .andExpect(content().json(readMessageFromFile("deleteRecipe/response_failure.json")));
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(
+                   readMessageFromFile("deleteRecipe/response_failure.json")));
     }
-
 }
