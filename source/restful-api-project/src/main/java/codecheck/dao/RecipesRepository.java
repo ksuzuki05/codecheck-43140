@@ -20,6 +20,7 @@ public interface RecipesRepository {
      * 
      * <p>レシピテーブルに対応するレコードが存在しない場合、null を返却します。
      * 
+     * @param id 取得対象のレシピ ID
      * @return ID で指定されたレシピ
      */
     Recipe getRecipeById(Integer id);

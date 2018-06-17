@@ -23,7 +23,7 @@ public final class Utils {
      * 変換に失敗した場合、null を返却します。
      * 
      * @param dateString "yyyy-MM-dd HH:mm:ss" 形式の文字列
-     * @return
+     * @return 変換後の日付
      */
     public static Date parseDate(String dateString) {
         Date result = null;

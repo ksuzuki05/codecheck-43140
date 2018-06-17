@@ -30,7 +30,8 @@ public class Recipe {
      * <li>ingredients
      * <li>cost
      * </ul>
-     * @return
+     * 
+     * @return 有効なレシピの場合true, 無効なレシピの場合 false
      */
     public boolean isValidRecipe() {
         return !StringUtils.isEmpty(title)

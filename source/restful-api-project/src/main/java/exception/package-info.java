@@ -1,4 +1,4 @@
 /**
- * Exception クラスを提供します。
+ * 例外クラスを提供します。
  */
 package exception;

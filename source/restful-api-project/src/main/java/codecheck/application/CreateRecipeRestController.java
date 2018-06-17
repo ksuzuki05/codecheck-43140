@@ -83,7 +83,7 @@ public class CreateRecipeRestController {
     @ExceptionHandler({ Exception.class })
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public SystemErrorResponse handleAnyError(Exception e) {
+    public SystemErrorResponse handleAnyError() {
         String message = "Recipe creation failed!";
         String detail = "something wrong";
         return new SystemErrorResponse(message, detail);

@@ -62,6 +62,7 @@ public class GetRecipeRestController {
     /**
      * レシピ取得（１件） API を提供します。
      * 
+     * @param id 取得対象のレシピ ID
      * @return レスポンスのペイロード
      */
     @RequestMapping(method = RequestMethod.GET, value = "recipes/{id}",
