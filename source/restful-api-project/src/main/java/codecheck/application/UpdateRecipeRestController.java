@@ -2,17 +2,23 @@ package codecheck.application;
 
 import codecheck.application.payload.CreateRecipeResponse;
 import codecheck.application.payload.RecipePayload;
+import codecheck.application.payload.UpdateRecipeErrorResponse;
 import codecheck.application.payload.UpdateRecipeRequest;
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
+import exception.RecipeNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -34,6 +40,7 @@ public class UpdateRecipeRestController {
     @RequestMapping(method = RequestMethod.PATCH, value = "recipes/{id}",
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public CreateRecipeResponse createRecipe(@PathVariable String id,
                                              @RequestBody UpdateRecipeRequest request) {
         boolean result = recipesService.updateRecipe(Integer.parseInt(id),
@@ -47,6 +54,22 @@ public class UpdateRecipeRestController {
         
         return null;
     }
+    
+    /**
+     * {@link RecipeNotFoundException} が発生した際に
+     * エラーメッセージを返却します。
+     * 
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler({ RecipeNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public UpdateRecipeErrorResponse handleDeleteRecipeError() {
+        String message = "No Recipe found";
+        return new UpdateRecipeErrorResponse(message);
+    }
+    
+    
 
     private Recipe mapRecipePayloadToRecipe(RecipePayload payload) {
         return new Recipe(payload.getTitle(), payload.getMakingTime(), payload.getServes(),

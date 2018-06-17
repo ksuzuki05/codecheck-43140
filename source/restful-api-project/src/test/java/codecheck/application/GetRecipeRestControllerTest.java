@@ -69,7 +69,7 @@ public class GetRecipeRestControllerTest {
     }
     
     @Test
-    public void test_idで指定したレシピが存在せずレシピを取得に失敗してエラーメッセージが返却される() throws Exception {
+    public void test_idで指定したレシピが存在せずレシピ取得に失敗してエラーメッセージが返却される() throws Exception {
         doThrow(new RecipeNotFoundException()).when(service).getRecipeById(2);
         
         mvc.perform(get("/recipes/2"))
