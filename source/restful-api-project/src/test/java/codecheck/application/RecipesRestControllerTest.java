@@ -9,6 +9,7 @@ import static codecheck.common.TestUtils.readMessageFromFile;
 
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
+import exception.InvalidRecipeException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -40,11 +41,22 @@ public class RecipesRestControllerTest {
         doReturn(true).when(service).createRecipe(recipe);
         
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                                    .content(readMessageFromFile("createRecipeRequest.json")))
+                                    .content(readMessageFromFile(
+                                            "createRecipe/request_success.json")))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(content().json(readMessageFromFile("createRecipeResponse.json")));
+            .andExpect(content().json(readMessageFromFile("createRecipe/response_success.json")));
+    }
+    
+    @Test
+    public void test_必須項目が不足しておりレシピ作成に失敗してエラーメッセージが返却される() throws Exception {
+        Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        doThrow(new InvalidRecipeException()).when(service).createRecipe(recipe);
         
-        verify(service).createRecipe(any());
+        mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                                    .content(readMessageFromFile(
+                                            "createRecipe/request_title-is-null.json")))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure.json")));
     }
 
 }
