@@ -2,42 +2,44 @@ package codecheck.domain;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import java.util.HashMap;
-import java.util.Map;
+
 import codecheck.dao.RecipesRepository;
 import codecheck.domain.model.Recipe;
+import exception.DatabaseProcessFailureException;
 import exception.InvalidRecipeException;
 import exception.RecipeNotFoundException;
-import exception.DatabaseProcessFailureException;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
 public class RecipesServiceTest {
     
-    @MockBean
-    private RecipesRepository recipesRepository;
+    @Mock
+    private RecipesRepository repository;
     
-    @Autowired
-    private RecipesService recipesService;
+    @InjectMocks
+    private RecipesService service = new RecipesServiceImpl();
     
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+    
     @Test
     public void test_レシピを作成できる() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doReturn(true).when(recipesRepository).entryRecipe(recipe);
+        doReturn(true).when(repository).entryRecipe(recipe);
         
-        boolean result = recipesService.createRecipe(recipe);
+        boolean result = service.createRecipe(recipe);
         
         assertTrue(result);
     }
@@ -47,7 +49,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe(null, "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(InvalidRecipeException.class);
 
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -55,7 +57,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", null, "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(InvalidRecipeException.class);
 
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -63,7 +65,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", null, "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(InvalidRecipeException.class);
 
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -71,7 +73,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", null, 450);
         expectedException.expect(InvalidRecipeException.class);
 
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -79,7 +81,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", null);
         expectedException.expect(InvalidRecipeException.class);
 
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -87,9 +89,9 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(DatabaseProcessFailureException.class);
         
-        doReturn(false).when(recipesRepository).entryRecipe(recipe);
+        doReturn(false).when(repository).entryRecipe(recipe);
         
-        recipesService.createRecipe(recipe);
+        service.createRecipe(recipe);
     }
     
     @Test
@@ -101,9 +103,9 @@ public class RecipesServiceTest {
         map.put(1, recipe1);
         map.put(2, recipe2);
         
-        doReturn(map).when(recipesRepository).getAllRecipes();
+        doReturn(map).when(repository).getAllRecipes();
         
-        Map<Integer, Recipe> actual = recipesService.getAllRecipes();
+        Map<Integer, Recipe> actual = service.getAllRecipes();
         assertEquals(recipe1, actual.get(1));
         assertEquals(recipe2, actual.get(2));
     }
@@ -112,8 +114,8 @@ public class RecipesServiceTest {
     public void test_idで指定したレシピを取得できる() {
         Recipe recipe = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         
-        doReturn(recipe).when(recipesRepository).getRecipeById(2);
-        Recipe actual = recipesService.getRecipeById(2);
+        doReturn(recipe).when(repository).getRecipeById(2);
+        Recipe actual = service.getRecipeById(2);
         
         assertEquals(recipe, actual);
     }
@@ -122,17 +124,17 @@ public class RecipesServiceTest {
     public void test_idで指定したレシピが存在せず取得時にRecipeNotFoundExceptionが発生する() {
         expectedException.expect(RecipeNotFoundException.class);
         
-        doReturn(null).when(recipesRepository).getRecipeById(2);
+        doReturn(null).when(repository).getRecipeById(2);
 
-        recipesService.getRecipeById(2);
+        service.getRecipeById(2);
     }
     
     @Test
     public void test_idで指定したレシピを更新できる() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        doReturn(true).when(recipesRepository).updateRecipe(2, recipe);
-        boolean result = recipesService.updateRecipe(2, recipe);
+        doReturn(true).when(repository).updateRecipe(2, recipe);
+        boolean result = service.updateRecipe(2, recipe);
         
         assertTrue(result);
     }
@@ -142,16 +144,16 @@ public class RecipesServiceTest {
         expectedException.expect(RecipeNotFoundException.class);
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        doReturn(false).when(recipesRepository).updateRecipe(2, recipe);
+        doReturn(false).when(repository).updateRecipe(2, recipe);
 
-        recipesService.updateRecipe(2, recipe);
+        service.updateRecipe(2, recipe);
     }
     
     @Test
     public void test_idで指定したレシピを削除できる() {
-        doReturn(true).when(recipesRepository).deleteRecipeById(2);
+        doReturn(true).when(repository).deleteRecipeById(2);
         
-        boolean result = recipesService.deleteRecipeById(2);
+        boolean result = service.deleteRecipeById(2);
         
         assertTrue(result);
     }
@@ -160,8 +162,8 @@ public class RecipesServiceTest {
     public void test_idで指定したレシピが存在せず削除時にRecipeNotFoundExceptionが発生する() {
         expectedException.expect(RecipeNotFoundException.class);
         
-        doReturn(false).when(recipesRepository).deleteRecipeById(2);
+        doReturn(false).when(repository).deleteRecipeById(2);
 
-        recipesService.deleteRecipeById(2);
+        service.deleteRecipeById(2);
     }
 }

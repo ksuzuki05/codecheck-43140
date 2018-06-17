@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class RecipesServiceImpl implements RecipesService {
 
     @Autowired
-    RecipesRepository recipesRepository;
+    RecipesRepository repository;
 
     /**
      * {@inheritDoc}
@@ -27,7 +27,7 @@ public class RecipesServiceImpl implements RecipesService {
             throw new InvalidRecipeException();
         }
         
-        boolean result = recipesRepository.entryRecipe(recipe);
+        boolean result = repository.entryRecipe(recipe);
         
         if (!result) {
             throw new DatabaseProcessFailureException();
@@ -41,7 +41,7 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public Map<Integer, Recipe> getAllRecipes() {
-        return recipesRepository.getAllRecipes();
+        return repository.getAllRecipes();
     }
 
     /**
@@ -49,7 +49,7 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public Recipe getRecipeById(Integer id) {
-        Recipe recipe = recipesRepository.getRecipeById(id);
+        Recipe recipe = repository.getRecipeById(id);
         
         if (recipe == null) {
             throw new RecipeNotFoundException();
@@ -63,7 +63,7 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public boolean updateRecipe(Integer id, Recipe recipe) {
-        boolean result = recipesRepository.updateRecipe(id, recipe);
+        boolean result = repository.updateRecipe(id, recipe);
         
         if (!result) {
             throw new RecipeNotFoundException();
@@ -77,7 +77,7 @@ public class RecipesServiceImpl implements RecipesService {
      */
     @Override
     public boolean deleteRecipeById(Integer id) {
-        boolean result = recipesRepository.deleteRecipeById(id);
+        boolean result = repository.deleteRecipeById(id);
         
         if (!result) {
             throw new RecipeNotFoundException();

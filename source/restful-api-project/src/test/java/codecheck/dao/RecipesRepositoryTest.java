@@ -40,7 +40,7 @@ public class RecipesRepositoryTest {
                     .build();
 
     @Autowired
-    RecipesRepository recipesRepository;
+    RecipesRepository repository;
     
     @Autowired
     DataSource dataSource;
@@ -58,7 +58,7 @@ public class RecipesRepositoryTest {
         Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertEquals(2, recipes.size());
         assertEquals(expected1, recipes.get(1));
@@ -69,7 +69,7 @@ public class RecipesRepositoryTest {
     public void test_レシピが登録されておらず全レシピ一覧取得で空のマップが取得できる() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE));
         
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertEquals(0, recipes.size());
     }
@@ -80,7 +80,7 @@ public class RecipesRepositoryTest {
         
         Recipe expected = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         
-        Recipe actual = recipesRepository.getRecipeById(2);
+        Recipe actual = repository.getRecipeById(2);
         
         assertEquals(expected, actual);
     }
@@ -90,7 +90,7 @@ public class RecipesRepositoryTest {
     public void test_idで指定したレシピが存在せずnullが返却される() {
         dbSetUp(Operations.sequenceOf(RESET_TABLE, INSERT));
         
-        Recipe actual = recipesRepository.getRecipeById(3);
+        Recipe actual = repository.getRecipeById(3);
         
         assertNull(actual);
     }
@@ -103,8 +103,8 @@ public class RecipesRepositoryTest {
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        boolean result = recipesRepository.entryRecipe(target);
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        boolean result = repository.entryRecipe(target);
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertTrue(result);
         assertEquals(3, recipes.size());
@@ -120,8 +120,8 @@ public class RecipesRepositoryTest {
         Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
-        boolean result = recipesRepository.updateRecipe(2, target);
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        boolean result = repository.updateRecipe(2, target);
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertTrue(result);
         assertEquals(2, recipes.size());
@@ -137,8 +137,8 @@ public class RecipesRepositoryTest {
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
-        boolean result = recipesRepository.updateRecipe(3, target);
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        boolean result = repository.updateRecipe(3, target);
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertFalse(result);
         assertEquals(2, recipes.size());
@@ -152,8 +152,8 @@ public class RecipesRepositoryTest {
         
         Recipe expected = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
 
-        boolean result = recipesRepository.deleteRecipeById(2);
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        boolean result = repository.deleteRecipeById(2);
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertTrue(result);
         assertEquals(1, recipes.size());
@@ -167,8 +167,8 @@ public class RecipesRepositoryTest {
         Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
 
-        boolean result = recipesRepository.deleteRecipeById(3);
-        Map<Integer, Recipe> recipes = recipesRepository.getAllRecipes();
+        boolean result = repository.deleteRecipeById(3);
+        Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertFalse(result);
         assertEquals(2, recipes.size());
