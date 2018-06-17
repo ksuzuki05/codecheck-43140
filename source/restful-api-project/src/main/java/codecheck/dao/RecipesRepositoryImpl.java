@@ -24,6 +24,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      */
     @Override
     public boolean createRecipe(Recipe recipe) {
+        
         int result = jdbcTemplate.update(
                 "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
                 + "VALUES (?, ?, ?, ?, ?)",
@@ -102,6 +103,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
     @Override
     public boolean deleteRecipeById(Integer id) {
         int result = jdbcTemplate.update("DELETE FROM recipes WHERE id = ?", id);
+        
         return result == 1;
     }
     

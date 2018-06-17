@@ -36,6 +36,7 @@ public class DeleteRecipeRestController {
     @ResponseStatus(HttpStatus.OK)
     public DeleteRecipeResponse deleteRecipeById(@PathVariable String id) {
         recipesService.deleteRecipeById(Integer.parseInt(id));
+        
         return new DeleteRecipeResponse("Recipe successfully removed!");
     }
     
@@ -50,6 +51,7 @@ public class DeleteRecipeRestController {
     @ResponseBody
     public DeleteRecipeErrorResponse handleDeleteRecipeError() {
         String message = "No Recipe found";
+        
         return new DeleteRecipeErrorResponse(message);
     }
 }

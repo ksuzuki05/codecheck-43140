@@ -72,6 +72,7 @@ public class CreateRecipeRestController {
     public CreateRecipeErrorResponse handleCreateRecipeError() {
         String message = "Recipe creation failed!";
         String required = "title, making_time, serves, ingredients, cost";
+        
         return new CreateRecipeErrorResponse(message, required);
     }
     
@@ -86,6 +87,7 @@ public class CreateRecipeRestController {
     public SystemErrorResponse handleAnyError() {
         String message = "Recipe creation failed!";
         String detail = "something wrong";
+        
         return new SystemErrorResponse(message, detail);
     }
     

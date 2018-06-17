@@ -38,7 +38,8 @@ public class UpdateRecipeRestController {
      * @param request 更新要求ペイロード
      * @return レスポンスのペイロード
      */
-    @RequestMapping(method = RequestMethod.PATCH, value = "recipes/{id}",
+    @RequestMapping(method = RequestMethod.PATCH,
+                    value = "recipes/{id}",
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -48,6 +49,7 @@ public class UpdateRecipeRestController {
         
         List<RecipePayload> list = new ArrayList<>();
         list.add(request);
+        
         return new CreateRecipeResponse("Recipe successfully updated!", list);
         
     }
@@ -63,6 +65,7 @@ public class UpdateRecipeRestController {
     @ResponseBody
     public UpdateRecipeErrorResponse handleUpdateRecipeError() {
         String message = "No Recipe found";
+        
         return new UpdateRecipeErrorResponse(message);
     }
 

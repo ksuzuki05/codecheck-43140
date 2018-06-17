@@ -94,6 +94,7 @@ public class GetRecipeRestController {
     @ResponseBody
     public GetRecipeErrorResponse handleGetRecipeError() {
         String message = "No Recipe found";
+        
         return new GetRecipeErrorResponse(message);
     }
     
