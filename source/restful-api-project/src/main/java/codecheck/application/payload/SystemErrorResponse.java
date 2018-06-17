@@ -18,4 +18,5 @@ public class SystemErrorResponse {
     
     @JsonProperty("detail")
     private String detail;
+    
 }

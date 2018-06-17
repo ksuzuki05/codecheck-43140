@@ -26,12 +26,12 @@ public class RecipesRepositoryImpl implements RecipesRepository {
     public boolean createRecipe(Recipe recipe) {
         int result = jdbcTemplate.update(
                 "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
-                        + "VALUES (?, ?, ?, ?, ?)",
-                        recipe.getTitle(),
-                        recipe.getMakingTime(),
-                        recipe.getServes(),
-                        recipe.getIngredients(),
-                        recipe.getCost());
+                + "VALUES (?, ?, ?, ?, ?)",
+                recipe.getTitle(),
+                recipe.getMakingTime(),
+                recipe.getServes(),
+                recipe.getIngredients(),
+                recipe.getCost());
         
         return result == 1;
     }

@@ -30,14 +30,13 @@ public class DeleteRecipeRestController {
      * @param id 削除対象レシピの ID
      * @return レスポンスのペイロード
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "recipes/{id}",
+    @RequestMapping(method = RequestMethod.DELETE,
+                    value = "recipes/{id}",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public DeleteRecipeResponse deleteRecipeById(@PathVariable String id) {
-        
         recipesService.deleteRecipeById(Integer.parseInt(id));
         return new DeleteRecipeResponse("Recipe successfully removed!");
-        
     }
     
     /**
@@ -50,9 +49,7 @@ public class DeleteRecipeRestController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public DeleteRecipeErrorResponse handleDeleteRecipeError() {
-        
         String message = "No Recipe found";
         return new DeleteRecipeErrorResponse(message);
-        
     }
 }

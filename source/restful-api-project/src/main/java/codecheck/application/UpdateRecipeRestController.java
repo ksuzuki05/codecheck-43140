@@ -1,11 +1,12 @@
 package codecheck.application;
 
+import static codecheck.common.Utils.mapRecipePayloadToRecipe;
+
 import codecheck.application.payload.CreateRecipeResponse;
 import codecheck.application.payload.RecipePayload;
 import codecheck.application.payload.UpdateRecipeErrorResponse;
 import codecheck.application.payload.UpdateRecipeRequest;
 import codecheck.domain.RecipesService;
-import codecheck.domain.model.Recipe;
 import exception.RecipeNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,6 @@ public class UpdateRecipeRestController {
     @ResponseStatus(HttpStatus.OK)
     public CreateRecipeResponse createRecipe(@PathVariable String id,
                                              @RequestBody UpdateRecipeRequest request) {
-        
         recipesService.updateRecipeById(Integer.parseInt(id), mapRecipePayloadToRecipe(request));
         
         List<RecipePayload> list = new ArrayList<>();
@@ -62,16 +62,8 @@ public class UpdateRecipeRestController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public UpdateRecipeErrorResponse handleUpdateRecipeError() {
-        
         String message = "No Recipe found";
         return new UpdateRecipeErrorResponse(message);
-        
     }
-    
-    
 
-    private Recipe mapRecipePayloadToRecipe(RecipePayload payload) {
-        return new Recipe(payload.getTitle(), payload.getMakingTime(), payload.getServes(),
-                payload.getIngredients(), Integer.parseInt(payload.getCost()));
-    }
 }

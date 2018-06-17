@@ -1,5 +1,7 @@
 package codecheck.common;
 
+import codecheck.application.payload.RecipePayload;
+import codecheck.domain.model.Recipe;
 import java.text.ParseException;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
@@ -34,5 +36,20 @@ public final class Utils {
             LOG.warn("parse exception is occurred.", e);
         }
         return result;
+    }
+    
+    /**
+     * レシピを表現するペイロード ({@link RecipePayload}) を
+     * レシピのドメインモデル ({@link Recipe}) に変換します。
+     * 
+     * @param payload レシピを表現するペイロード
+     * @return レシピのドメインモデル
+     */
+    public static Recipe mapRecipePayloadToRecipe(RecipePayload payload) {
+        return new Recipe(payload.getTitle(),
+                          payload.getMakingTime(),
+                          payload.getServes(),
+                          payload.getIngredients(),
+                          Integer.parseInt(payload.getCost()));
     }
 }

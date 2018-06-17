@@ -1,12 +1,13 @@
 package codecheck.application;
 
+import static codecheck.common.Utils.mapRecipePayloadToRecipe;
+
 import codecheck.application.payload.CreateRecipeErrorResponse;
 import codecheck.application.payload.CreateRecipeRequest;
 import codecheck.application.payload.CreateRecipeResponse;
 import codecheck.application.payload.RecipePayload;
 import codecheck.application.payload.SystemErrorResponse;
 import codecheck.domain.RecipesService;
-import codecheck.domain.model.Recipe;
 import exception.InvalidPayloadException;
 import exception.InvalidRecipeException;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class CreateRecipeRestController {
      * @param request 作成要求ペイロード
      * @return レスポンスのペイロード
      */
-    @RequestMapping(method = RequestMethod.POST, value = "recipes",
+    @RequestMapping(method = RequestMethod.POST,
+                    value = "recipes",
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -53,6 +55,7 @@ public class CreateRecipeRestController {
         
         List<RecipePayload> list = new ArrayList<>();
         list.add(request);
+        
         return new CreateRecipeResponse("Recipe successfully created!", list);
     }
     
@@ -63,7 +66,7 @@ public class CreateRecipeRestController {
      */
     @ExceptionHandler({ InvalidRecipeException.class,
                         InvalidPayloadException.class,
-                        HttpMessageNotReadableException.class})
+                        HttpMessageNotReadableException.class })
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public CreateRecipeErrorResponse handleCreateRecipeError() {
@@ -86,11 +89,4 @@ public class CreateRecipeRestController {
         return new SystemErrorResponse(message, detail);
     }
     
-    private Recipe mapRecipePayloadToRecipe(RecipePayload payload) {
-        return new Recipe(payload.getTitle(),
-                          payload.getMakingTime(),
-                          payload.getServes(),
-                          payload.getIngredients(),
-                          Integer.parseInt(payload.getCost()));
-    }
 }

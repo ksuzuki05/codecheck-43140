@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeWithIdPayload extends RecipePayload {
-
+    
     @JsonProperty("id")
     private int id;
-
+    
 }

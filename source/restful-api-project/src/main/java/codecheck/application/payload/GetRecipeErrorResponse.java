@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetRecipeErrorResponse {
-
+    
     @JsonProperty("message")
     private String message;
-
+    
 }

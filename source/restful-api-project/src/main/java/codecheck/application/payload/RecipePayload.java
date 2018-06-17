@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipePayload {
-
+    
     @JsonProperty("title")
     private String title;
     

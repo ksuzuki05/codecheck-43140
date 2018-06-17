@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRecipeErrorResponse {
+    
     @JsonProperty("message")
     private String message;
     
     @JsonProperty("required")
     private String required;
+    
 }

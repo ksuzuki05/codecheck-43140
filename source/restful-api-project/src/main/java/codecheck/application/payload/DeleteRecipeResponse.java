@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteRecipeResponse {
-
+    
     @JsonProperty("message")
     private String message;
-
+    
 }

@@ -37,7 +37,8 @@ public class GetRecipeRestController {
      * 
      * @return レスポンスのペイロード
      */
-    @RequestMapping(method = RequestMethod.GET, value = "recipes",
+    @RequestMapping(method = RequestMethod.GET,
+                    value = "recipes",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public GetAllRecipeResponse getAllRecipe() {
@@ -56,7 +57,6 @@ public class GetRecipeRestController {
         response.setRecipes(list);
         
         return response;
-        
     }
     
     /**
@@ -65,7 +65,8 @@ public class GetRecipeRestController {
      * @param id 取得対象のレシピ ID
      * @return レスポンスのペイロード
      */
-    @RequestMapping(method = RequestMethod.GET, value = "recipes/{id}",
+    @RequestMapping(method = RequestMethod.GET,
+                    value = "recipes/{id}",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public GetRecipeByIdResponse getRecipeById(@PathVariable String id) {
@@ -115,4 +116,5 @@ public class GetRecipeRestController {
         
         return payload;
     }
+    
 }

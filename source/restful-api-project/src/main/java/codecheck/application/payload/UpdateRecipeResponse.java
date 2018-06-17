@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateRecipeResponse {
-
+    
     @JsonProperty("message")
     private String message;
     
     @JsonProperty("recipe")
     private List<RecipePayload> recipes;
+    
 }
