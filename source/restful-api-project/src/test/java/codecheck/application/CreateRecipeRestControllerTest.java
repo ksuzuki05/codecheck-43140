@@ -1,11 +1,11 @@
 package codecheck.application;
 
+import static codecheck.common.TestUtils.readMessageFromFile;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static codecheck.common.TestUtils.readMessageFromFile;
 
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
@@ -19,13 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class RecipesRestControllerTest {
+public class CreateRecipeRestControllerTest {
     
     @Mock
     private RecipesService service;
     
     @InjectMocks
-    private RecipesRestController controller;
+    private CreateRecipeRestController controller;
     
     private MockMvc mvc;
     
@@ -55,7 +55,7 @@ public class RecipesRestControllerTest {
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
                                             "createRecipe/request_title-is-null.json")))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(status().isBadRequest())
             .andExpect(content().json(readMessageFromFile("createRecipe/response_failure.json")));
     }
 

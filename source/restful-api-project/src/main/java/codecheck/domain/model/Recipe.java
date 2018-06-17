@@ -1,5 +1,6 @@
 package codecheck.domain.model;
 
+import org.apache.commons.lang3.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,10 +33,10 @@ public class Recipe {
      * @return
      */
     public boolean isValidRecipe() {
-        return title != null 
-               && makingTime != null
-               && serves != null
-               && ingredients != null
+        return !StringUtils.isEmpty(title)
+               && !StringUtils.isEmpty(makingTime)
+               && !StringUtils.isEmpty(serves)
+               && !StringUtils.isEmpty(ingredients)
                && cost != null;
     }
 
