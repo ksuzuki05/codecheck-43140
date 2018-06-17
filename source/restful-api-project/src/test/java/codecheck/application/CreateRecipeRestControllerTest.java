@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import codecheck.domain.RecipesService;
 import codecheck.domain.model.Recipe;
+import exception.DatabaseProcessFailureException;
 import exception.InvalidRecipeException;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,14 +58,39 @@ public class CreateRecipeRestControllerTest {
                                     .content(readMessageFromFile(
                                             "createRecipe/request_title-is-null.json")))
             .andExpect(status().isOk())
-            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure_required.json")));
+            .andExpect(content().json(
+                    readMessageFromFile("createRecipe/response_failure_required.json")));
     }
     
     @Test
     public void test_リクエストボディが空でエラーメッセージが返却される() throws Exception {
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(status().isOk())
-            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure_required.json")));
+            .andExpect(content().json(
+                    readMessageFromFile("createRecipe/response_failure_required.json")));
+    }
+    
+    @Test
+    public void test_costが数値形式でないためエラーメッセージが返却される() throws Exception {
+        mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(readMessageFromFile(
+                        "createRecipe/request_cost-is-not-numeric.json")))
+            .andExpect(status().isOk())
+            .andExpect(content().json(
+                    readMessageFromFile("createRecipe/response_failure_any-error.json")));
+    }
+    
+    @Test
+    public void test_DB処理で予期せぬエラーが発生しエラーメッセージが返却される() throws Exception {
+        Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+        doThrow(new DatabaseProcessFailureException()).when(service).createRecipe(recipe);
+        
+        mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(readMessageFromFile(
+                        "createRecipe/request_success.json")))
+            .andExpect(status().isOk())
+            .andExpect(content().json(
+                    readMessageFromFile("createRecipe/response_failure_any-error.json")));
     }
 
 }
