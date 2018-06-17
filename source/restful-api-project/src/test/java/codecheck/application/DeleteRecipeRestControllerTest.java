@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import codecheck.domain.RecipesService;
-import codecheck.domain.model.Recipe;
+import exception.RecipeNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -41,6 +41,15 @@ public class DeleteRecipeRestControllerTest {
         mvc.perform(delete("/recipes/2"))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
            .andExpect(content().json(readMessageFromFile("deleteRecipe/response_success.json")));
+    }
+    
+    @Test
+    public void test_idで指定したレシピが存在せずレシピ削除に失敗してエラーメッセージが返却される() throws Exception {
+        doThrow(new RecipeNotFoundException()).when(service).deleteRecipeById(2);
+        
+        mvc.perform(delete("/recipes/2"))
+           .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+           .andExpect(content().json(readMessageFromFile("deleteRecipe/response_failure.json")));
     }
 
 }
