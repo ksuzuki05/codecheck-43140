@@ -22,7 +22,7 @@ public class RecipesServiceImpl implements RecipesService {
      * {@inheritDoc}
      */
     @Override
-    public boolean createRecipe(Recipe recipe) {
+    public void createRecipe(Recipe recipe) {
         if (!recipe.isValidRecipe()) {
             throw new InvalidRecipeException();
         }
@@ -32,8 +32,6 @@ public class RecipesServiceImpl implements RecipesService {
         if (!result) {
             throw new DatabaseProcessFailureException();
         }
-        
-        return true;
     }
 
     /**
@@ -62,27 +60,23 @@ public class RecipesServiceImpl implements RecipesService {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateRecipeById(Integer id, Recipe recipe) {
+    public void updateRecipeById(Integer id, Recipe recipe) {
         boolean result = repository.updateRecipeById(id, recipe);
         
         if (!result) {
             throw new RecipeNotFoundException();
         }
-        
-        return true;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean deleteRecipeById(Integer id) {
+    public void deleteRecipeById(Integer id) {
         boolean result = repository.deleteRecipeById(id);
         
         if (!result) {
             throw new RecipeNotFoundException();
         }
-        
-        return true;
     }
 }

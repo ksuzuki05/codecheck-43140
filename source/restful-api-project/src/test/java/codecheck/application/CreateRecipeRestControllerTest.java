@@ -40,7 +40,7 @@ public class CreateRecipeRestControllerTest {
     @Test
     public void test_レシピを作成でき成功メッセージが返却される() throws Exception {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doReturn(true).when(service).createRecipe(recipe);
+        doNothing().when(service).createRecipe(recipe);
         
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
@@ -48,6 +48,8 @@ public class CreateRecipeRestControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(readMessageFromFile("createRecipe/response_success.json")));
+        
+        verify(service).createRecipe(recipe);
     }
     
     @Test

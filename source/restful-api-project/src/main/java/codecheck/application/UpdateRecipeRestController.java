@@ -43,16 +43,13 @@ public class UpdateRecipeRestController {
     @ResponseStatus(HttpStatus.OK)
     public CreateRecipeResponse createRecipe(@PathVariable String id,
                                              @RequestBody UpdateRecipeRequest request) {
-        boolean result = recipesService.updateRecipeById(Integer.parseInt(id),
-                                                     mapRecipePayloadToRecipe(request));
         
-        if (result) {
-            List<RecipePayload> list = new ArrayList<>();
-            list.add(request);
-            return new CreateRecipeResponse("Recipe successfully updated!", list);
-        }
+        recipesService.updateRecipeById(Integer.parseInt(id), mapRecipePayloadToRecipe(request));
         
-        return null;
+        List<RecipePayload> list = new ArrayList<>();
+        list.add(request);
+        return new CreateRecipeResponse("Recipe successfully updated!", list);
+        
     }
     
     /**
@@ -65,8 +62,10 @@ public class UpdateRecipeRestController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public UpdateRecipeErrorResponse handleUpdateRecipeError() {
+        
         String message = "No Recipe found";
         return new UpdateRecipeErrorResponse(message);
+        
     }
     
     

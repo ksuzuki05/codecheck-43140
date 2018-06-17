@@ -12,9 +12,8 @@ public interface RecipesService {
      * レシピを作成します。
      * 
      * @param recipe 作成するレシピ
-     * @return 作成に成功した場合 true, 失敗した場合 false
      */
-    public boolean createRecipe(Recipe recipe);
+    public void createRecipe(Recipe recipe);
 
     /**
      * 全レシピを取得します。
@@ -36,16 +35,14 @@ public interface RecipesService {
      * 
      * @param id 更新するレシピの ID
      * @param recipe 更新後のレシピ
-     * @return 更新に成功した場合 true, 失敗した場合 false
      */
-    public boolean updateRecipeById(Integer id, Recipe recipe);
+    public void updateRecipeById(Integer id, Recipe recipe);
 
     /**
      * ID で指定したレシピを削除します。
      * 
      * @param id 削除するレシピの ID
-     * @return 削除に成功した場合 true, 失敗した場合 false
      */
-    public boolean deleteRecipeById(Integer id);
+    public void deleteRecipeById(Integer id);
 
 }

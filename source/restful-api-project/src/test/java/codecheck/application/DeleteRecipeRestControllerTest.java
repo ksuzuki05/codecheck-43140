@@ -37,13 +37,15 @@ public class DeleteRecipeRestControllerTest {
     
     @Test
     public void test_idで指定したレシピを削除できる() throws Exception {
-        doReturn(true).when(service).deleteRecipeById(2);
+        doNothing().when(service).deleteRecipeById(2);
         
         mvc.perform(delete("/recipes/2"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(
                    readMessageFromFile("deleteRecipe/response_success.json")));
+        
+        verify(service).deleteRecipeById(2);
     }
     
     @Test

@@ -42,9 +42,9 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         doReturn(true).when(repository).createRecipe(recipe);
         
-        boolean result = service.createRecipe(recipe);
+        service.createRecipe(recipe);
         
-        assertTrue(result);
+        verify(repository).createRecipe(recipe);
     }
     
     @Test
@@ -169,9 +169,9 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
         doReturn(true).when(repository).updateRecipeById(2, recipe);
-        boolean result = service.updateRecipeById(2, recipe);
+        service.updateRecipeById(2, recipe);
         
-        assertTrue(result);
+        verify(repository).updateRecipeById(2, recipe);
     }
 
     @Test
@@ -188,9 +188,9 @@ public class RecipesServiceTest {
     public void test_idで指定したレシピを削除できる() {
         doReturn(true).when(repository).deleteRecipeById(2);
         
-        boolean result = service.deleteRecipeById(2);
+        service.deleteRecipeById(2);
         
-        assertTrue(result);
+        verify(repository).deleteRecipeById(2);
     }
     
     @Test

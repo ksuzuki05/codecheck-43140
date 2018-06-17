@@ -49,14 +49,11 @@ public class CreateRecipeRestController {
             throw new InvalidPayloadException();
         }
         
-        boolean result = recipesService.createRecipe(mapRecipePayloadToRecipe(request));
+        recipesService.createRecipe(mapRecipePayloadToRecipe(request));
         
-        if (result) {
-            List<RecipePayload> list = new ArrayList<>();
-            list.add(request);
-            return new CreateRecipeResponse("Recipe successfully created!", list);
-        }
-        return null;
+        List<RecipePayload> list = new ArrayList<>();
+        list.add(request);
+        return new CreateRecipeResponse("Recipe successfully created!", list);
     }
     
     /**

@@ -18,6 +18,23 @@ import org.springframework.stereotype.Repository;
 public class RecipesRepositoryImpl implements RecipesRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean createRecipe(Recipe recipe) {
+        int result = jdbcTemplate.update(
+                "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
+                        + "VALUES (?, ?, ?, ?, ?)",
+                        recipe.getTitle(),
+                        recipe.getMakingTime(),
+                        recipe.getServes(),
+                        recipe.getIngredients(),
+                        recipe.getCost());
+        
+        return result == 1;
+    }
 
     /**
      * {@inheritDoc}
@@ -53,23 +70,6 @@ public class RecipesRepositoryImpl implements RecipesRepository {
         }
         
         return mapRecipeEntityToRecipe(recipeEntity);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean createRecipe(Recipe recipe) {
-        int result = jdbcTemplate.update(
-                "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
-                + "VALUES (?, ?, ?, ?, ?)",
-                recipe.getTitle(),
-                recipe.getMakingTime(),
-                recipe.getServes(),
-                recipe.getIngredients(),
-                recipe.getCost());
-        
-        return result == 1;
     }
     
     /**

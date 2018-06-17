@@ -39,7 +39,7 @@ public class UpdateRecipeRestControllerTest {
     @Test
     public void test_idで指定したレシピを更新できる() throws Exception {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doReturn(true).when(service).updateRecipeById(2, recipe);
+        doNothing().when(service).updateRecipeById(2, recipe);
         
         mvc.perform(patch("/recipes/2").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
@@ -47,6 +47,8 @@ public class UpdateRecipeRestControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(content().json(readMessageFromFile("updateRecipe/response_success.json")));
+        
+        verify(service).updateRecipeById(2, recipe);
     }
     
     @Test

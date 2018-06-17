@@ -34,13 +34,10 @@ public class DeleteRecipeRestController {
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public DeleteRecipeResponse deleteRecipeById(@PathVariable String id) {
-        boolean result = recipesService.deleteRecipeById(Integer.parseInt(id));
         
-        if (result) {
-            return new DeleteRecipeResponse("Recipe successfully removed!");
-        }
+        recipesService.deleteRecipeById(Integer.parseInt(id));
+        return new DeleteRecipeResponse("Recipe successfully removed!");
         
-        return null;
     }
     
     /**
@@ -53,7 +50,9 @@ public class DeleteRecipeRestController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public DeleteRecipeErrorResponse handleDeleteRecipeError() {
+        
         String message = "No Recipe found";
         return new DeleteRecipeErrorResponse(message);
+        
     }
 }
