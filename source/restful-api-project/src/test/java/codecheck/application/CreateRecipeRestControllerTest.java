@@ -57,14 +57,14 @@ public class CreateRecipeRestControllerTest {
                                     .content(readMessageFromFile(
                                             "createRecipe/request_title-is-null.json")))
             .andExpect(status().isOk())
-            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure.json")));
+            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure_required.json")));
     }
     
     @Test
     public void test_リクエストボディが空でエラーメッセージが返却される() throws Exception {
         mvc.perform(post("/recipes").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(status().isOk())
-            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure.json")));
+            .andExpect(content().json(readMessageFromFile("createRecipe/response_failure_required.json")));
     }
 
 }
