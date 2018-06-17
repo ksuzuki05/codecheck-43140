@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 
+/**
+ * テストで使用されるユーティリティクラス。
+ */
 public class TestUtils {
 
     private TestUtils() {

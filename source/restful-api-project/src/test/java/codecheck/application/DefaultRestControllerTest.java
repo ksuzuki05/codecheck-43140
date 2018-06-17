@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+/**
+ * {@link DefaultRestController} のテストクラス。
+ */
 public class DefaultRestControllerTest {
     
     private DefaultRestController controller = new DefaultRestController();

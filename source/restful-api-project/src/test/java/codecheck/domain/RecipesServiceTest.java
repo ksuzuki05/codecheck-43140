@@ -18,6 +18,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+/**
+ * {@link RecipesService} のテストクラス。
+ */
 public class RecipesServiceTest {
     
     @Mock
