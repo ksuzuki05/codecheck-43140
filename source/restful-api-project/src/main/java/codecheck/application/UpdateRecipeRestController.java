@@ -27,8 +27,7 @@ public class UpdateRecipeRestController {
     /**
      * レシピ更新 API を提供します。
      * 
-     * <p>インターフェースされたレシピ作成要求のペイロードをもとにレシピを作成します。
-     * 
+     * @param id 更新対象レシピの ID
      * @param request 更新要求ペイロード
      * @return レスポンスのペイロード
      */

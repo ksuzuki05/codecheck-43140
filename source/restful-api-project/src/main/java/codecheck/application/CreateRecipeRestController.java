@@ -34,7 +34,7 @@ public class CreateRecipeRestController {
      * 
      * <p>インターフェースされたレシピ作成要求のペイロードをもとにレシピを作成します。
      * 
-     * @param request 登録要求ペイロード
+     * @param request 作成要求ペイロード
      * @return レスポンスのペイロード
      */
     @RequestMapping(method = RequestMethod.POST, value = "recipes",
