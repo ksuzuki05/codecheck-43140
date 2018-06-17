@@ -27,7 +27,7 @@ public class RecipesServiceImpl implements RecipesService {
             throw new InvalidRecipeException();
         }
         
-        boolean result = repository.entryRecipe(recipe);
+        boolean result = repository.createRecipe(recipe);
         
         if (!result) {
             throw new DatabaseProcessFailureException();
@@ -62,8 +62,8 @@ public class RecipesServiceImpl implements RecipesService {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateRecipe(Integer id, Recipe recipe) {
-        boolean result = repository.updateRecipe(id, recipe);
+    public boolean updateRecipeById(Integer id, Recipe recipe) {
+        boolean result = repository.updateRecipeById(id, recipe);
         
         if (!result) {
             throw new RecipeNotFoundException();

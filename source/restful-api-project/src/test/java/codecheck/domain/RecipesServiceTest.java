@@ -37,7 +37,7 @@ public class RecipesServiceTest {
     @Test
     public void test_レシピを作成できる() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doReturn(true).when(repository).entryRecipe(recipe);
+        doReturn(true).when(repository).createRecipe(recipe);
         
         boolean result = service.createRecipe(recipe);
         
@@ -89,7 +89,7 @@ public class RecipesServiceTest {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         expectedException.expect(DatabaseProcessFailureException.class);
         
-        doReturn(false).when(repository).entryRecipe(recipe);
+        doReturn(false).when(repository).createRecipe(recipe);
         
         service.createRecipe(recipe);
     }
@@ -133,8 +133,8 @@ public class RecipesServiceTest {
     public void test_idで指定したレシピを更新できる() {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        doReturn(true).when(repository).updateRecipe(2, recipe);
-        boolean result = service.updateRecipe(2, recipe);
+        doReturn(true).when(repository).updateRecipeById(2, recipe);
+        boolean result = service.updateRecipeById(2, recipe);
         
         assertTrue(result);
     }
@@ -144,9 +144,9 @@ public class RecipesServiceTest {
         expectedException.expect(RecipeNotFoundException.class);
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        doReturn(false).when(repository).updateRecipe(2, recipe);
+        doReturn(false).when(repository).updateRecipeById(2, recipe);
 
-        service.updateRecipe(2, recipe);
+        service.updateRecipeById(2, recipe);
     }
     
     @Test

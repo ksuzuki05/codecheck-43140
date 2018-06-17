@@ -43,7 +43,7 @@ public class UpdateRecipeRestController {
     @ResponseStatus(HttpStatus.OK)
     public CreateRecipeResponse createRecipe(@PathVariable String id,
                                              @RequestBody UpdateRecipeRequest request) {
-        boolean result = recipesService.updateRecipe(Integer.parseInt(id),
+        boolean result = recipesService.updateRecipeById(Integer.parseInt(id),
                                                      mapRecipePayloadToRecipe(request));
         
         if (result) {
@@ -64,7 +64,7 @@ public class UpdateRecipeRestController {
     @ExceptionHandler({ RecipeNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public UpdateRecipeErrorResponse handleDeleteRecipeError() {
+    public UpdateRecipeErrorResponse handleUpdateRecipeError() {
         String message = "No Recipe found";
         return new UpdateRecipeErrorResponse(message);
     }

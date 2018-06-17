@@ -30,7 +30,7 @@ public interface RecipesRepository {
      * @param recipe 登録するレシピ
      * @return 登録が成功した場合 true, 失敗した場合 false
      */
-    boolean entryRecipe(Recipe recipe);
+    boolean createRecipe(Recipe recipe);
     
     /**
      * ID で指定したレシピを更新します。
@@ -39,7 +39,7 @@ public interface RecipesRepository {
      * @param recipe 更新後のレシピ
      * @return 更新が成功した場合 true, 失敗した場合 false
      */
-    boolean updateRecipe(Integer id, Recipe recipe);
+    boolean updateRecipeById(Integer id, Recipe recipe);
     
     /**
      * ID で指定したレシピをレシピテーブルから削除します。

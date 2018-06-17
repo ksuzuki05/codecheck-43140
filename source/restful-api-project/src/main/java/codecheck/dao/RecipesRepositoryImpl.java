@@ -59,7 +59,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      * {@inheritDoc}
      */
     @Override
-    public boolean entryRecipe(Recipe recipe) {
+    public boolean createRecipe(Recipe recipe) {
         int result = jdbcTemplate.update(
                 "INSERT INTO recipes (title, making_time, serves, ingredients, cost) "
                 + "VALUES (?, ?, ?, ?, ?)",
@@ -76,7 +76,7 @@ public class RecipesRepositoryImpl implements RecipesRepository {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateRecipe(Integer id, Recipe recipe) {
+    public boolean updateRecipeById(Integer id, Recipe recipe) {
         int result = jdbcTemplate.update(
                 "UPDATE recipes SET title = ?, "
                 + "making_time = ?, "

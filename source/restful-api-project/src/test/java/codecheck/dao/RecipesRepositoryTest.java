@@ -2,12 +2,13 @@ package codecheck.dao;
 
 import static codecheck.common.Utils.parseDate;
 import static org.junit.Assert.*;
+
+import codecheck.domain.model.Recipe;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.Operations;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.destination.Destination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import codecheck.domain.model.Recipe;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.junit.Test;
@@ -103,7 +104,7 @@ public class RecipesRepositoryTest {
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
         
-        boolean result = repository.entryRecipe(target);
+        boolean result = repository.createRecipe(target);
         Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertTrue(result);
@@ -120,7 +121,7 @@ public class RecipesRepositoryTest {
         Recipe expected1 = new Recipe("チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
-        boolean result = repository.updateRecipe(2, target);
+        boolean result = repository.updateRecipeById(2, target);
         Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertTrue(result);
@@ -137,7 +138,7 @@ public class RecipesRepositoryTest {
         Recipe expected2 = new Recipe("オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700);
         Recipe target = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
 
-        boolean result = repository.updateRecipe(3, target);
+        boolean result = repository.updateRecipeById(3, target);
         Map<Integer, Recipe> recipes = repository.getAllRecipes();
         
         assertFalse(result);

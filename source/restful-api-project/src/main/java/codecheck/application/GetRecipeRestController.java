@@ -90,7 +90,7 @@ public class GetRecipeRestController {
     @ExceptionHandler({ RecipeNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public GetRecipeErrorResponse handleDeleteRecipeError() {
+    public GetRecipeErrorResponse handleGetRecipeError() {
         String message = "No Recipe found";
         return new GetRecipeErrorResponse(message);
     }

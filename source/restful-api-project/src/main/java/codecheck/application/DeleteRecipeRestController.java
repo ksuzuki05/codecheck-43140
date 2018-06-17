@@ -33,7 +33,7 @@ public class DeleteRecipeRestController {
     @RequestMapping(method = RequestMethod.DELETE, value = "recipes/{id}",
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public DeleteRecipeResponse createRecipe(@PathVariable String id) {
+    public DeleteRecipeResponse deleteRecipeById(@PathVariable String id) {
         boolean result = recipesService.deleteRecipeById(Integer.parseInt(id));
         
         if (result) {

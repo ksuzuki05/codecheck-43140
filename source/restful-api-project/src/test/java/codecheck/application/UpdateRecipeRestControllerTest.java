@@ -36,7 +36,7 @@ public class UpdateRecipeRestControllerTest {
     @Test
     public void test_idで指定したレシピを更新できる() throws Exception {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doReturn(true).when(service).updateRecipe(2, recipe);
+        doReturn(true).when(service).updateRecipeById(2, recipe);
         
         mvc.perform(patch("/recipes/2").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
@@ -49,7 +49,7 @@ public class UpdateRecipeRestControllerTest {
     @Test
     public void test_idで指定したレシピが存在せずレシピ更新に失敗してエラーメッセージが返却される() throws Exception {
         Recipe recipe = new Recipe("トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
-        doThrow(new RecipeNotFoundException()).when(service).updateRecipe(2, recipe);
+        doThrow(new RecipeNotFoundException()).when(service).updateRecipeById(2, recipe);
         
         mvc.perform(patch("/recipes/2").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                     .content(readMessageFromFile(
