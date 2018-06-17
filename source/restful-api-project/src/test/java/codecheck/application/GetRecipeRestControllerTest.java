@@ -26,7 +26,7 @@ public class GetRecipeRestControllerTest {
     private RecipesService service;
     
     @InjectMocks
-    private CreateRecipeRestController controller;
+    private GetRecipeRestController controller;
     
     private MockMvc mvc;
     
@@ -53,5 +53,4 @@ public class GetRecipeRestControllerTest {
            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
            .andExpect(content().json(readMessageFromFile("getRecipe/response_success_all-recipes.json")));
     }
-
 }
