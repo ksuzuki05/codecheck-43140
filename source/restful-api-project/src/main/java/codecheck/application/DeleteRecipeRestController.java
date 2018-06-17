@@ -1,12 +1,18 @@
 package codecheck.application;
 
+import codecheck.application.payload.DeleteRecipeErrorResponse;
 import codecheck.application.payload.DeleteRecipeResponse;
 import codecheck.domain.RecipesService;
+import exception.RecipeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -34,5 +40,19 @@ public class DeleteRecipeRestController {
         }
         
         return null;
+    }
+    
+    /**
+     * {@link RecipeNotFoundException} が発生した際に
+     * エラーメッセージを返却します。
+     * 
+     * @return エラーレスポンス
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ RecipeNotFoundException.class })
+    @ResponseBody
+    public DeleteRecipeErrorResponse handleDeleteRecipeError() {
+        String message = "No Recipe found";
+        return new DeleteRecipeErrorResponse(message);
     }
 }

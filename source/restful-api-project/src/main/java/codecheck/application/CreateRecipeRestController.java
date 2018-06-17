@@ -54,7 +54,7 @@ public class CreateRecipeRestController {
      * {@link InvalidRecipeException} が発生した際に
      * エラーメッセージを返却します。
      * 
-     * @return
+     * @return エラーレスポンス
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ InvalidRecipeException.class })
